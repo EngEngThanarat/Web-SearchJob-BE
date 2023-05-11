@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model requitment {
+  Business_Name String  @id @db.VarChar(50)
+  Address       String? @db.VarChar(70)
+  Detail        String? @db.VarChar(256)
+  role          String? @db.VarChar(50)
+  Work_Location String? @db.VarChar(256)
+  status        String  @db.VarChar(50)
+}
+
+model users {
+  Email       String  @id @db.VarChar(70)
+  Password    String  @db.VarChar(20)
+  Name        String? @db.VarChar(20)
+  Lastname    String? @db.VarChar(20)
+  Address     String? @db.VarChar(50)
+  Telephone   String? @db.Char(12)
+  Nationality String? @db.VarChar(20)
+}
+
+model checkapplicants {
+  id           Int     @id @default(autoincrement())
+  UserEmail    String  @db.VarChar(70)
+  BusinessName String  @db.VarChar(50)
+  status       String? @db.VarChar(15)
+
+  @@index([BusinessName], map: "BusinessName")
+  @@index([UserEmail], map: "UserEmail")
+}
